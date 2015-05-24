@@ -1,5 +1,5 @@
 {
-  "name": "Vreme",
+  "name": "vreme",
   "version": "1.0.0",
   "description": "Human friendly date formatter",
   "main": "index.js",
