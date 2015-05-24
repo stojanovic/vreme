@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/stojanovic/vreme.svg)](https://travis-ci.org/stojanovic/vreme)
+[![Build Status](https://travis-ci.org/stojanovic/vreme.svg)](https://travis-ci.org/stojanovic/vreme) [![npm version](https://badge.fury.io/js/vreme.svg)](http://badge.fury.io/js/vreme)
 
 # Vreme
 Human readable date formatter.
