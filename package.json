@@ -1,0 +1,23 @@
+{
+  "name": "Vreme",
+  "version": "1.0.0",
+  "description": "Human friendly date formatter",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec ./test/index.js",
+    "compile": "babel src/index.js -o index.js"
+  },
+  "keywords": [
+    "time",
+    "date",
+    "format",
+    "human",
+    "readable"
+  ],
+  "devDependencies": {
+    "chai": "^2.0.0",
+    "mocha": "^2.1.0"
+  },
+  "author": "Slobodan Stojanovic",
+  "license": "MIT",
+}
