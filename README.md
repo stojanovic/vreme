@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stojanovic/vreme.svg)](https://travis-ci.org/stojanovic/vreme)
+
 # Vreme
 Human readable date formatter.
 
