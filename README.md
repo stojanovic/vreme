@@ -26,7 +26,7 @@ var Vreme = require('Vreme')
 
 var vreme = new Vreme()
 
-var date = new Date('2/14/2015')
+var date = new Date('8/1/2015')
 
 // To get month
 console.log(vreme.format(date, 'January'))            // Output 'August'
