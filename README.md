@@ -5,7 +5,6 @@
   <br>
 </h1>
 
-# Vreme
 Human readable date formatter.
 
 Vreme is a simple date/time converter with human readable format strings.
