@@ -90,10 +90,15 @@ var Vreme = (function () {
       var formatedDate = before.split(/\b/).map(function (partial) {
         return _this2.formatDate(date, partial);
       });
+      var formatedTime = [];
+
+      if (time.length) formatedTime = time.map(function (partial, index) {
+        return _this2.formatTime(date, partial, index);
+      });
 
       // Merge and return the result
       // Time should be parsed too, but at the moment we are just returning it
-      return formatedDate.join('') + time.join('') + after;
+      return formatedDate.join('') + formatedTime.join('') + after;
     }
   }, {
     key: 'ordinalSuffix',
@@ -265,6 +270,23 @@ var Vreme = (function () {
       }
 
       // Otherwise just return format, because it is probably just a text
+      return format;
+    }
+  }, {
+    key: 'formatTime',
+    value: function formatTime(dateTime, format, index) {
+
+      // console.log('TIME', format, index)
+
+      // Best match function
+      var bestMatch = function bestMatch(number, time) {};
+
+      if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP)) return dateTime.getHours();
+
+      if (index === 0 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getHours()).slice(-2);
+
+      if (index === 2 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getMinutes()).slice(-2);
+
       return format;
     }
   }]);
