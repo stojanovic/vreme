@@ -1,9 +1,7 @@
 [![Build Status](https://travis-ci.org/stojanovic/vreme.svg)](https://travis-ci.org/stojanovic/vreme) [![npm version](https://badge.fury.io/js/vreme.svg)](http://badge.fury.io/js/vreme)
 
 <h1 align="center">
-  <br>
   <img width="300" src="https://rawgit.com/stojanovic/vreme/master/vreme.svg" alt="vreme">
-  <br>
   <br>
 </h1>
 
