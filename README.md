@@ -46,15 +46,15 @@ console.log(vreme.format(date, '1999'))               // 2015
 console.log(vreme.format(date, '42'))                 // 15
 
 // To get full dates
-console.log(vreme.format(date, 'March 25, 1999'));    // August 01, 2015
-console.log(vreme.format(date, 'March 1, 1999'));     // August 1, 2015
-console.log(vreme.format(date, 'March 25th'));        // August 1st
-console.log(vreme.format(date, '2014/04/25'));        // 2015/08/01
-console.log(vreme.format(date, '02/03/11'));          // 08/01/15
-console.log(vreme.format(date, '21.04.2015'));        // 01.08.2015
+console.log(vreme.format(date, 'March 25, 1999'))     // August 01, 2015
+console.log(vreme.format(date, 'March 1, 1999'))      // August 1, 2015
+console.log(vreme.format(date, 'March 25th'))         // August 1st
+console.log(vreme.format(date, '2014/04/25'))         // 2015/08/01
+console.log(vreme.format(date, '02/03/11'))           // 08/01/15
+console.log(vreme.format(date, '21.04.2015'))         // 01.08.2015
 
 // Or you can combine it with text
-console.log(vreme.format(date, 'Date: March, 25th')); // Date: August, 1st
+console.log(vreme.format(date, 'Date: March, 25th'))  // Date: August, 1st
 
 
 ```
@@ -108,8 +108,8 @@ Run `npm test` or `mocha -R spec ./test/index.js`.
 
 ## Todo
 
-- Parse time too;
-- Memoization;
-- Make it work in the browser without browserify;
-- Support other languages, it'll be a bit problematic to fix ordinal sufixes for
+- [ ] Parse time too;
+- [ ] Memoization;
+- [ ] Make it work in the browser without browserify;
+- [ ] Support other languages, it'll be a bit problematic to fix ordinal sufixes for
 all languages, but everything else should be fine.
