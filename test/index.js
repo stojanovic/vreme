@@ -11,7 +11,7 @@ describe('Human Readable Time format', function () {
       usePrototype: true
     });
 
-    date = new Date('Sat, 01 Aug 2015 22:10:00');
+    date = new Date('Sat, 01 Aug 2015 2:10:21');
 
   });
 
@@ -83,8 +83,28 @@ describe('Human Readable Time format', function () {
 
   describe('Time conversion', function() {
 
+    it('should parse time in H:MM format', function() {
+      expect(stamp.format(date, '5:00')).to.equal('2:10');
+    });
+
     it('should parse time in HH:MM format', function() {
-      expect(stamp.format(date, '14:00')).to.equal('22:10');
+      expect(stamp.format(date, '17:10')).to.equal('02:10');
+    });
+
+    it('should parse time in H:MM:SS format', function() {
+      expect(stamp.format(date, '5:10:30')).to.equal('2:10:21');
+    });
+
+    it('should parse time in HH:MM:SS format', function() {
+      expect(stamp.format(date, '15:10:30')).to.equal('02:10:21');
+    });
+
+    it('should parse time in H:MM AM/PM format', function() {
+      expect(stamp.format(date, '5:10 pm')).to.equal('2:10 am');
+    });
+
+    it('should parse time in HH:MMam/pm format', function() {
+      expect(stamp.format(date, '03:20pm')).to.equal('02:10am');
     });
 
   });

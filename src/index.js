@@ -66,7 +66,7 @@ export default class Vreme {
     let formatedTime = []
 
     if (time.length)
-      formatedTime = time.map((partial, index) => this.formatTime(date, partial, index));
+      formatedTime = time.map((partial, index) => this.formatTime(date, partial, index, time));
 
     // Merge and return the result
     // Time should be parsed too, but at the moment we are just returning it
@@ -237,14 +237,7 @@ export default class Vreme {
 
   }
 
-  formatTime(dateTime, format, index) {
-
-    // console.log('TIME', format, index)
-
-    // Best match function
-    let bestMatch = (number, time) => {
-
-    }
+  formatTime(dateTime, format, index, fullTime) {
 
     if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP))
       return dateTime.getHours()
@@ -254,6 +247,12 @@ export default class Vreme {
 
     if (index === 2 && format.match(this.regex.TWO_DIGIT_REGEXP))
       return ('0' + dateTime.getMinutes()).slice(-2)
+
+    if (format && index === 5 && format.match(this.regex.TWO_DIGIT_REGEXP))
+      return ('0' + dateTime.getSeconds()).slice(-2)
+
+    if (format && index === 7)
+      return parseInt(fullTime[0], 10) < 12 ? 'am' : 'pm'
 
     return format
 

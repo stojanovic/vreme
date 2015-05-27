@@ -93,7 +93,7 @@ var Vreme = (function () {
       var formatedTime = [];
 
       if (time.length) formatedTime = time.map(function (partial, index) {
-        return _this2.formatTime(date, partial, index);
+        return _this2.formatTime(date, partial, index, time);
       });
 
       // Merge and return the result
@@ -274,18 +274,17 @@ var Vreme = (function () {
     }
   }, {
     key: 'formatTime',
-    value: function formatTime(dateTime, format, index) {
-
-      // console.log('TIME', format, index)
-
-      // Best match function
-      var bestMatch = function bestMatch(number, time) {};
+    value: function formatTime(dateTime, format, index, fullTime) {
 
       if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP)) return dateTime.getHours();
 
       if (index === 0 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getHours()).slice(-2);
 
       if (index === 2 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getMinutes()).slice(-2);
+
+      if (format && index === 5 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getSeconds()).slice(-2);
+
+      if (format && index === 7) return parseInt(fullTime[0], 10) < 12 ? 'am' : 'pm';
 
       return format;
     }
