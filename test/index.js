@@ -83,6 +83,8 @@ describe('Human Readable Time format', function () {
 
   describe('Time conversion', function() {
 
+    var date2 = new Date('Sat, 01 Aug 2015 14:10:21');
+
     it('should parse time in H:MM format', function() {
       expect(stamp.format(date, '5:00')).to.equal('2:10');
     });
@@ -101,6 +103,10 @@ describe('Human Readable Time format', function () {
 
     it('should parse time in H:MM AM/PM format', function() {
       expect(stamp.format(date, '5:10 pm')).to.equal('2:10 am');
+    });
+
+    it('should parse time in HH:MM AM/PM format for hours > 12', function() {
+      expect(stamp.format(date2, '11:10 pm')).to.equal('02:10 pm');
     });
 
     it('should parse time in HH:MMam/pm format', function() {
@@ -141,9 +147,27 @@ describe('Human Readable Time format', function () {
 
     });
 
+    it('should format date in YYYY/MM/DD HH:MM:SS format', function() {
+
+      expect(stamp.format(date, '21.04.2015 14:04:31')).to.equal('01.08.2015 02:10:21');
+
+    });
+
+    it('should format date in Monthname D, YYYY H:MM am/pm format', function() {
+
+      expect(stamp.format(date, 'March 25, 1999 2:04 pm')).to.equal('August 01, 2015 2:10 am');
+
+    });
+
     it('should keep the extraneous text', function() {
 
       expect(stamp.format(date, 'Date: March, 25th')).to.equal('Date: August, 1st');
+
+    });
+
+    it('should keep the extraneous text after time', function() {
+
+      expect(stamp.format(date, 'Date: March, 25th 1:10pm lorem ipsum')).to.equal('Date: August, 1st 2:10am lorem ipsum');
 
     });
 

@@ -278,13 +278,17 @@ var Vreme = (function () {
 
       if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP)) return dateTime.getHours();
 
-      if (index === 0 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getHours()).slice(-2);
+      if (index === 0 && format.match(this.regex.TWO_DIGIT_REGEXP)) if (fullTime[7] && dateTime.getHours() > 12) {
+        return ('0' + (dateTime.getHours() - 12)).slice(-2);
+      } else {
+        return ('0' + dateTime.getHours()).slice(-2);
+      }
 
       if (index === 2 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getMinutes()).slice(-2);
 
       if (format && index === 5 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getSeconds()).slice(-2);
 
-      if (format && index === 7) return parseInt(fullTime[0], 10) < 12 ? 'am' : 'pm';
+      if (format && index === 7) return dateTime.getHours() < 12 ? 'am' : 'pm';
 
       return format;
     }
