@@ -119,7 +119,7 @@ Run `npm test` or `mocha -R spec ./test/index.js`.
 ## Todo
 
 - [x] Parse time too;
-- [ ] Memoization;
 - [ ] Make it work in the browser without browserify;
+- [ ] Memoization;
 - [ ] Support other languages, it'll be a bit problematic to fix ordinal sufixes for
 all languages, but everything else should be fine.
