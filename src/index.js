@@ -63,10 +63,14 @@ export default class Vreme {
 
     // Split date and format each part
     let formatedDate = before.split(/\b/).map(partial => this.formatDate(date, partial))
+    let formatedTime = []
+
+    if (time.length)
+      formatedTime = time.map((partial, index) => this.formatTime(date, partial, index, time));
 
     // Merge and return the result
     // Time should be parsed too, but at the moment we are just returning it
-    return formatedDate.join('') + time.join('') + after
+    return formatedDate.join('') + formatedTime.join('') + after
 
   }
 
@@ -229,6 +233,31 @@ export default class Vreme {
     }
 
     // Otherwise just return format, because it is probably just a text
+    return format
+
+  }
+
+  formatTime(dateTime, format, index, fullTime) {
+
+    if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP))
+      return dateTime.getHours()
+
+    if (index === 0 && format.match(this.regex.TWO_DIGIT_REGEXP))
+      if (fullTime[7] && dateTime.getHours() > 12) {
+        return ('0' + (dateTime.getHours() - 12)).slice(-2)
+      } else {
+        return ('0' + dateTime.getHours()).slice(-2)
+      }
+
+    if (index === 2 && format.match(this.regex.TWO_DIGIT_REGEXP))
+      return ('0' + dateTime.getMinutes()).slice(-2)
+
+    if (format && index === 5 && format.match(this.regex.TWO_DIGIT_REGEXP))
+      return ('0' + dateTime.getSeconds()).slice(-2)
+
+    if (format && index === 7)
+      return (dateTime.getHours() < 12) ? 'am' : 'pm'
+
     return format
 
   }

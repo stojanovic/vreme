@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var Vreme  = require('../');
 
-var stamp;
+var stamp, date;
 
 describe('Human Readable Time format', function () {
 
@@ -11,23 +11,21 @@ describe('Human Readable Time format', function () {
       usePrototype: true
     });
 
+    date = new Date('Sat, 01 Aug 2015 2:10:21');
+
   });
 
   describe('Month conversion', function() {
 
     it('should convert date to full month name', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, 'January')).to.equal('February');
+      expect(stamp.format(date, 'January')).to.equal('August');
 
     });
 
     it('should convert date to three letters month name', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, 'Jan')).to.equal('Feb');
+      expect(stamp.format(date, 'Jan')).to.equal('Aug');
 
     });
 
@@ -37,15 +35,11 @@ describe('Human Readable Time format', function () {
 
     it('should convert date to full day name', function() {
 
-      var date = new Date('2/14/2015');
-
       expect(stamp.format(date, 'Monday')).to.equal('Saturday');
 
     });
 
     it('should convert date to three letters day name', function() {
-
-      var date = new Date('2/14/2015');
 
       expect(stamp.format(date, 'Mon')).to.equal('Sat');
 
@@ -53,25 +47,19 @@ describe('Human Readable Time format', function () {
 
     it('should convert date to two letters day name', function() {
 
-      var date = new Date('2/14/2015');
-
       expect(stamp.format(date, 'Mo')).to.equal('Sa');
 
     });
 
     it('should convert date to ordinal day number', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, '1st')).to.equal('14th');
+      expect(stamp.format(date, '1st')).to.equal('1st');
 
     });
 
     it('should convert date to two numbers day format', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, '24')).to.equal('14');
+      expect(stamp.format(date, '24')).to.equal('01');
 
     });
 
@@ -81,18 +69,48 @@ describe('Human Readable Time format', function () {
 
     it('should show 4 letter year', function() {
 
-      var date = new Date('2/14/2015');
-
       expect(stamp.format(date, '1999')).to.equal('2015');
 
     });
 
     it('should show 2 letter year for values between 32 and 99', function() {
 
-      var date = new Date('2/14/2015');
-
       expect(stamp.format(date, '35')).to.equal('15');
 
+    });
+
+  });
+
+  describe('Time conversion', function() {
+
+    var date2 = new Date('Sat, 01 Aug 2015 14:10:21');
+
+    it('should parse time in H:MM format', function() {
+      expect(stamp.format(date, '5:00')).to.equal('2:10');
+    });
+
+    it('should parse time in HH:MM format', function() {
+      expect(stamp.format(date, '17:10')).to.equal('02:10');
+    });
+
+    it('should parse time in H:MM:SS format', function() {
+      expect(stamp.format(date, '5:10:30')).to.equal('2:10:21');
+    });
+
+    it('should parse time in HH:MM:SS format', function() {
+      expect(stamp.format(date, '15:10:30')).to.equal('02:10:21');
+    });
+
+    it('should parse time in H:MM AM/PM format', function() {
+      expect(stamp.format(date, '5:10 pm')).to.equal('2:10 am');
+    });
+
+    it('should parse time in HH:MM AM/PM format for hours > 12', function() {
+      expect(stamp.format(date2, '11:10 pm')).to.equal('02:10 pm');
+    });
+
+    it('should parse time in HH:MMam/pm format', function() {
+      expect(stamp.format(date, '03:20pm')).to.equal('02:10am');
     });
 
   });
@@ -101,49 +119,55 @@ describe('Human Readable Time format', function () {
 
     it('should format date in Monthname D, YYYY format', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, 'March 25, 1999')).to.equal('February 14, 2015');
+      expect(stamp.format(date, 'March 25, 1999')).to.equal('August 01, 2015');
 
     });
 
     it('should format date in Monthname Dth format', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, 'March 25th')).to.equal('February 14th');
+      expect(stamp.format(date, 'March 25th')).to.equal('August 1st');
 
     });
 
     it('should format date in YYYY/MM/DD format', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, '2014/04/25')).to.equal('2015/02/14');
+      expect(stamp.format(date, '2014/04/25')).to.equal('2015/08/01');
 
     });
 
     it('should format date in YY/MM/DD format', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(stamp.format(date, '42/04/25')).to.equal('15/02/14');
+      expect(stamp.format(date, '42/04/25')).to.equal('15/08/01');
 
     });
 
     it('should format date in DD.MM.YYYY format', function() {
 
-      var date = new Date('2/14/2015');
+      expect(stamp.format(date, '21.04.2015')).to.equal('01.08.2015');
 
-      expect(stamp.format(date, '21.04.2015')).to.equal('14.02.2015');
+    });
+
+    it('should format date in YYYY/MM/DD HH:MM:SS format', function() {
+
+      expect(stamp.format(date, '21.04.2015 14:04:31')).to.equal('01.08.2015 02:10:21');
+
+    });
+
+    it('should format date in Monthname D, YYYY H:MM am/pm format', function() {
+
+      expect(stamp.format(date, 'March 25, 1999 2:04 pm')).to.equal('August 01, 2015 2:10 am');
 
     });
 
     it('should keep the extraneous text', function() {
 
-      var date = new Date('2/14/2015');
+      expect(stamp.format(date, 'Date: March, 25th')).to.equal('Date: August, 1st');
 
-      expect(stamp.format(date, 'Date: March, 25th')).to.equal('Date: February, 14th');
+    });
+
+    it('should keep the extraneous text after time', function() {
+
+      expect(stamp.format(date, 'Date: March, 25th 1:10pm lorem ipsum')).to.equal('Date: August, 1st 2:10am lorem ipsum');
 
     });
 
@@ -153,9 +177,7 @@ describe('Human Readable Time format', function () {
 
     it('should format date in YYYY/MM/DD format', function() {
 
-      var date = new Date('2/14/2015');
-
-      expect(date.formatLike('2014/04/25')).to.equal('2015/02/14');
+      expect(date.formatLike('2014/04/25')).to.equal('2015/08/01');
 
     });
 
