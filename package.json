@@ -1,7 +1,7 @@
 {
   "name": "vreme",
-  "version": "1.0.1",
-  "description": "Human-friendly date formatting",
+  "version": "2.0.0",
+  "description": "Format date and time by providing human-readable example",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec ./test/index.js",
