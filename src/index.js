@@ -34,23 +34,14 @@ export default class Vreme {
     }
 
     // Call reset method first, because we want a clean start
-    this.reset()
-  }
-
-  reset() {
-    // Reset an object we are using for a best match
-    this.matches = {
-      month: false,
-      day:   false,
-      year:  false
-    }
+    this._reset()
   }
 
   // Main function
   format(date, formatString) {
 
     // Call reset method first, because we want a clean start
-    this.reset()
+    this._reset()
 
     // Split format string by time
     let time   = formatString.split(this.regex.TIME_REGEXP)
@@ -239,6 +230,13 @@ export default class Vreme {
 
   formatTime(dateTime, format, index, fullTime) {
 
+    let getAmPm = (format, hours) => {
+      let ampm = hours < 12 ? 'am' : 'pm'
+      if (this._isAllCaps(format))
+        return ampm.toUpperCase()
+      return ampm
+    }
+
     if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP))
       return dateTime.getHours()
 
@@ -256,10 +254,27 @@ export default class Vreme {
       return ('0' + dateTime.getSeconds()).slice(-2)
 
     if (format && index === 7)
-      return (dateTime.getHours() < 12) ? 'am' : 'pm'
+      return getAmPm(format, dateTime.getHours())
 
     return format
 
+  }
+
+  _reset() {
+    // Reset an object we are using for a best match
+    this.matches = {
+      month: false,
+      day:   false,
+      year:  false
+    }
+  }
+
+  _isCapital(str) {
+    return str.charAt(0) === str.charAt(0).toUpperCase()
+  }
+
+  _isAllCaps(str) {
+    return str === str.toUpperCase()
   }
 
 }

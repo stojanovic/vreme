@@ -155,7 +155,7 @@ describe('Human Readable Time format', function () {
 
     it('should format date in Monthname D, YYYY H:MM am/pm format', function() {
 
-      expect(stamp.format(date, 'March 25, 1999 2:04 pm')).to.equal('August 01, 2015 2:10 am');
+      expect(stamp.format(date, 'March 25, 1999 2:04 PM')).to.equal('August 01, 2015 2:10 AM');
 
     });
 

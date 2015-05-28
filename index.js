@@ -54,20 +54,10 @@ var Vreme = (function () {
     };
 
     // Call reset method first, because we want a clean start
-    this.reset();
+    this._reset();
   }
 
   _createClass(Vreme, [{
-    key: 'reset',
-    value: function reset() {
-      // Reset an object we are using for a best match
-      this.matches = {
-        month: false,
-        day: false,
-        year: false
-      };
-    }
-  }, {
     key: 'format',
 
     // Main function
@@ -75,7 +65,7 @@ var Vreme = (function () {
       var _this2 = this;
 
       // Call reset method first, because we want a clean start
-      this.reset();
+      this._reset();
 
       // Split format string by time
       var time = formatString.split(this.regex.TIME_REGEXP);
@@ -275,6 +265,13 @@ var Vreme = (function () {
   }, {
     key: 'formatTime',
     value: function formatTime(dateTime, format, index, fullTime) {
+      var _this4 = this;
+
+      var getAmPm = function getAmPm(format, hours) {
+        var ampm = hours < 12 ? 'am' : 'pm';
+        if (_this4._isAllCaps(format)) return ampm.toUpperCase();
+        return ampm;
+      };
 
       if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP)) return dateTime.getHours();
 
@@ -288,9 +285,29 @@ var Vreme = (function () {
 
       if (format && index === 5 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getSeconds()).slice(-2);
 
-      if (format && index === 7) return dateTime.getHours() < 12 ? 'am' : 'pm';
+      if (format && index === 7) return getAmPm(format, dateTime.getHours());
 
       return format;
+    }
+  }, {
+    key: '_reset',
+    value: function _reset() {
+      // Reset an object we are using for a best match
+      this.matches = {
+        month: false,
+        day: false,
+        year: false
+      };
+    }
+  }, {
+    key: '_isCapital',
+    value: function _isCapital(str) {
+      return str.charAt(0) === str.charAt(0).toUpperCase();
+    }
+  }, {
+    key: '_isAllCaps',
+    value: function _isAllCaps(str) {
+      return str === str.toUpperCase();
     }
   }]);
 
