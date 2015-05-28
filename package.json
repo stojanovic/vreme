@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec ./test/index.js",
-    "compile": "babel src/index.js -o index.js"
+    "compile": "babel src/index.js -o index.js; ./node_modules/.bin/git-changelog -a Vreme"
   },
   "keywords": [
     "time",
@@ -16,6 +16,8 @@
   ],
   "devDependencies": {
     "chai": "^2.0.0",
+    "git-changelog": "^0.1.7",
+    "grunt": "^0.4.5",
     "mocha": "^2.1.0"
   },
   "repository": {
