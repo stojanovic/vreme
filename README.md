@@ -41,8 +41,10 @@ console.log(vreme.format(date, '2'))                  // 8
 
 // To convert day names
 console.log(vreme.format(date, 'Monday'))             // Saturday
+console.log(vreme.format(date, 'monday'))             // saturday
 console.log(vreme.format(date, 'Mon'))                // Sat
 console.log(vreme.format(date, 'Mo'))                 // Sa
+console.log(vreme.format(date, 'MO'))                 // SA
 console.log(vreme.format(date, '1st'))                // 1st
 console.log(vreme.format(date, '22'))                 // 01
 
@@ -99,9 +101,7 @@ as it's possible, so there is some limitations:
 '02/03/11') module will always assume `MM/DD/YY` format;
 - If you use integers between 13 and 31 for both year and day it'll assume (ie.
 '02/14/14') it'll assume DD/YY format;
-- At the moment it works only with english month names and they are always 
-capitalized;
-- Same for months, english only and capitalized.
+- At the moment it works only with month and day names in english.
 
 There are additional limitation that are not on this list, they'll be added.
 

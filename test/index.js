@@ -29,6 +29,18 @@ describe('Human Readable Time format', function () {
 
     });
 
+    it('should convert date to all caps three letters month name', function() {
+
+      expect(stamp.format(date, 'JAN')).to.equal('AUG');
+
+    });
+
+    it('should convert date to lower case three letters month name', function() {
+
+      expect(stamp.format(date, 'jan')).to.equal('aug');
+
+    });
+
   });
 
   describe('Day conversion', function() {
@@ -48,6 +60,18 @@ describe('Human Readable Time format', function () {
     it('should convert date to two letters day name', function() {
 
       expect(stamp.format(date, 'Mo')).to.equal('Sa');
+
+    });
+
+    it('should convert date to all caps two letters day name', function() {
+
+      expect(stamp.format(date, 'MO')).to.equal('SA');
+
+    });
+
+    it('should convert date to lowercase day name', function() {
+
+      expect(stamp.format(date, 'monday')).to.equal('saturday');
 
     });
 
