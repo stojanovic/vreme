@@ -16,8 +16,8 @@ var Vreme = (function () {
 
     // Default options, should merge them with passed options in future
     this.options = {
-      monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      monthNames: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
+      dayNames: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
     };
 
     // Use Date prototype,
@@ -54,20 +54,10 @@ var Vreme = (function () {
     };
 
     // Call reset method first, because we want a clean start
-    this.reset();
+    this._reset();
   }
 
   _createClass(Vreme, [{
-    key: 'reset',
-    value: function reset() {
-      // Reset an object we are using for a best match
-      this.matches = {
-        month: false,
-        day: false,
-        year: false
-      };
-    }
-  }, {
     key: 'format',
 
     // Main function
@@ -75,7 +65,7 @@ var Vreme = (function () {
       var _this2 = this;
 
       // Call reset method first, because we want a clean start
-      this.reset();
+      this._reset();
 
       // Split format string by time
       var time = formatString.split(this.regex.TIME_REGEXP);
@@ -203,31 +193,31 @@ var Vreme = (function () {
       // Check if format string is full month name
       if (format.match(this.regex.MONTHNAMES_REGEXP)) {
         this.matches.month = true;
-        return this.options.monthNames[date.getMonth()];
+        return this._correctCase(format, this.options.monthNames[date.getMonth()]);
       }
 
       // Check if format string is short month name
       if (format.match(this.regex.MONTHNAMES_ABBR_REGEXP)) {
         this.matches.month = true;
-        return this.options.monthNames[date.getMonth()].substr(0, 3);
+        return this._correctCase(format, this.options.monthNames[date.getMonth()].substr(0, 3));
       }
 
       // Check if format string is full day name
       if (format.match(this.regex.DAYNAMES_REGEXP)) {
         this.matches.day = true;
-        return this.options.dayNames[date.getDay()];
+        return this._correctCase(format, this.options.dayNames[date.getDay()]);
       }
 
       // Check if format string is 3 letter day name
       if (format.match(this.regex.DAYNAMES_ABBR_REGEXP)) {
         this.matches.day = true;
-        return this.options.dayNames[date.getDay()].substr(0, 3);
+        return this._correctCase(format, this.options.dayNames[date.getDay()].substr(0, 3));
       }
 
       // Check if format string is 2 letter day name
       if (format.match(this.regex.DAYNAMES_SHORT_REGEXP)) {
         this.matches.day = true;
-        return this.options.dayNames[date.getDay()].substr(0, 2);
+        return this._correctCase(format, this.options.dayNames[date.getDay()].substr(0, 2));
       }
 
       // Check if format string is year (4 digits)
@@ -275,6 +265,13 @@ var Vreme = (function () {
   }, {
     key: 'formatTime',
     value: function formatTime(dateTime, format, index, fullTime) {
+      var _this4 = this;
+
+      var getAmPm = function getAmPm(format, hours) {
+        var ampm = hours < 12 ? 'am' : 'pm';
+        if (_this4._isAllCaps(format)) return ampm.toUpperCase();
+        return ampm;
+      };
 
       if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP)) return dateTime.getHours();
 
@@ -288,9 +285,47 @@ var Vreme = (function () {
 
       if (format && index === 5 && format.match(this.regex.TWO_DIGIT_REGEXP)) return ('0' + dateTime.getSeconds()).slice(-2);
 
-      if (format && index === 7) return dateTime.getHours() < 12 ? 'am' : 'pm';
+      if (format && index === 7) return dateTime.getHours() < 12 ? this._correctCase(format, 'am') : this._correctCase(format, 'pm');
 
       return format;
+    }
+  }, {
+    key: '_reset',
+    value: function _reset() {
+      // Reset an object we are using for a best match
+      this.matches = {
+        month: false,
+        day: false,
+        year: false
+      };
+    }
+  }, {
+    key: '_isCapital',
+    value: function _isCapital(str) {
+      return str.charAt(0) === str.charAt(0).toUpperCase();
+    }
+  }, {
+    key: '_isLowercase',
+    value: function _isLowercase(str) {
+      return str === str.toLowerCase();
+    }
+  }, {
+    key: '_isAllCaps',
+    value: function _isAllCaps(str) {
+      return str === str.toUpperCase();
+    }
+  }, {
+    key: '_toCapital',
+    value: function _toCapital(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1, str.length);
+    }
+  }, {
+    key: '_correctCase',
+    value: function _correctCase(format, str) {
+      if (this._isLowercase(format)) return str.toLowerCase();
+      if (this._isAllCaps(format)) return str.toUpperCase();
+      if (this._isCapital(format)) return this._toCapital(str);
+      return str;
     }
   }]);
 

@@ -4,8 +4,8 @@ export default class Vreme {
 
     // Default options, should merge them with passed options in future
     this.options = {
-      monthNames:   ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      dayNames:     ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      monthNames:   ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
+      dayNames:     ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
     }
 
     // Use Date prototype,
@@ -34,23 +34,14 @@ export default class Vreme {
     }
 
     // Call reset method first, because we want a clean start
-    this.reset()
-  }
-
-  reset() {
-    // Reset an object we are using for a best match
-    this.matches = {
-      month: false,
-      day:   false,
-      year:  false
-    }
+    this._reset()
   }
 
   // Main function
   format(date, formatString) {
 
     // Call reset method first, because we want a clean start
-    this.reset()
+    this._reset()
 
     // Split format string by time
     let time   = formatString.split(this.regex.TIME_REGEXP)
@@ -166,31 +157,31 @@ export default class Vreme {
     // Check if format string is full month name
     if (format.match(this.regex.MONTHNAMES_REGEXP)) {
       this.matches.month = true
-      return this.options.monthNames[date.getMonth()]
+      return this._correctCase(format, this.options.monthNames[date.getMonth()])
     }
 
     // Check if format string is short month name
     if (format.match(this.regex.MONTHNAMES_ABBR_REGEXP)) {
       this.matches.month = true
-      return this.options.monthNames[date.getMonth()].substr(0, 3)
+      return this._correctCase(format, this.options.monthNames[date.getMonth()].substr(0, 3))
     }
 
     // Check if format string is full day name
     if (format.match(this.regex.DAYNAMES_REGEXP)) {
       this.matches.day = true
-      return this.options.dayNames[date.getDay()]
+      return this._correctCase(format, this.options.dayNames[date.getDay()])
     }
 
     // Check if format string is 3 letter day name
     if (format.match(this.regex.DAYNAMES_ABBR_REGEXP)) {
       this.matches.day = true
-      return this.options.dayNames[date.getDay()].substr(0, 3)
+      return this._correctCase(format, this.options.dayNames[date.getDay()].substr(0, 3))
     }
 
     // Check if format string is 2 letter day name
     if (format.match(this.regex.DAYNAMES_SHORT_REGEXP)) {
       this.matches.day = true
-      return this.options.dayNames[date.getDay()].substr(0, 2)
+      return this._correctCase(format, this.options.dayNames[date.getDay()].substr(0, 2))
     }
 
     // Check if format string is year (4 digits)
@@ -239,6 +230,13 @@ export default class Vreme {
 
   formatTime(dateTime, format, index, fullTime) {
 
+    let getAmPm = (format, hours) => {
+      let ampm = hours < 12 ? 'am' : 'pm'
+      if (this._isAllCaps(format))
+        return ampm.toUpperCase()
+      return ampm
+    }
+
     if (index === 0 && format.match(this.regex.ONE_DIGIT_REGEXP))
       return dateTime.getHours()
 
@@ -256,10 +254,45 @@ export default class Vreme {
       return ('0' + dateTime.getSeconds()).slice(-2)
 
     if (format && index === 7)
-      return (dateTime.getHours() < 12) ? 'am' : 'pm'
+      return (dateTime.getHours() < 12) ? this._correctCase(format, 'am') : this._correctCase(format, 'pm')
 
     return format
 
+  }
+
+  _reset() {
+    // Reset an object we are using for a best match
+    this.matches = {
+      month: false,
+      day:   false,
+      year:  false
+    }
+  }
+
+  _isCapital(str) {
+    return str.charAt(0) === str.charAt(0).toUpperCase()
+  }
+
+  _isLowercase(str) {
+    return str === str.toLowerCase()
+  }
+
+  _isAllCaps(str) {
+    return str === str.toUpperCase()
+  }
+
+  _toCapital(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1, str.length)
+  }
+
+  _correctCase(format, str) {
+    if (this._isLowercase(format))
+      return str.toLowerCase()
+    if (this._isAllCaps(format))
+      return str.toUpperCase()
+    if (this._isCapital(format))
+      return this._toCapital(str)
+    return str
   }
 
 }
