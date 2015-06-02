@@ -1,0 +1,31 @@
+{
+  "name": "vreme",
+  "main": "vreme.js",
+  "version": "3.0.1",
+  "homepage": "https://github.com/stojanovic/vreme",
+  "authors": [
+    "Slobodan <slobodan@cloudhorizon.com>"
+  ],
+  "description": "Format date and time by providing human-readable example",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "time",
+    "date",
+    "format",
+    "human",
+    "readable",
+    "example"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
