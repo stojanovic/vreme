@@ -19,7 +19,8 @@ some other module for more complex date formats (ie. [this one](https://www.npmj
 Import Vreme and make a new instance, than you should simply provide date and 
 human readable format.
 
-If works with node.js and in the browser.
+If works with node.js and in the browser. It supports CommonJS, AMD and using as
+global variable.
 
 You can format full dates and times or just a month/day name, as you can see 
 in the example below:
