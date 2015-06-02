@@ -19,8 +19,7 @@ some other module for more complex date formats (ie. [this one](https://www.npmj
 Import Vreme and make a new instance, than you should simply provide date and 
 human readable format.
 
-If works out of the box with node.js, to run in the browser you'll need 
-[browserify](https://www.npmjs.com/package/browserify).
+If works with node.js and in the browser.
 
 You can format full dates and times or just a month/day name, as you can see 
 in the example below:
@@ -92,6 +91,37 @@ console.log(date.formatLike('March 25, 1999'))    // August 20, 2015
 
 ```
 
+### In the browser
+
+Just include vreme.js or vreme.min.js in scripts and use the module same as 
+described above.
+
+ie.
+
+```
+
+<!doctype html>
+<html>
+<head>
+  <title>Vreme test</title>
+</head>
+<body>
+  <script src="vreme.min.js"></script>
+  <script>
+
+    var vreme = new Vreme();
+
+    var date = new Date();
+
+    console.log(vreme.format(date, 'Monday'));
+
+  </script>
+</body>
+</html>
+
+
+```
+
 ## Limitations
 
 This module is relying on regular expressions and I tried to keep it as simple 
@@ -110,7 +140,10 @@ There are additional limitation that are not on this list, they'll be added.
 Vreme is written in ES6 and compiled with Babel.  
 Intall Babel by running `npm i babel -g` than run `npm run compile` to 
 transpile it to ES5.  
-You can run Babel manually with following command: `babel src/index.js -o index.js`.
+
+If you want to run Babel manually, you'll need to do: 
+`babel src/index.js -o .tmp/vreme.js` and then `buildify` to 
+add support for CommonJS, AMD and script and to make minified version.
 
 ## Test
 
@@ -119,7 +152,7 @@ Run `npm test` or `mocha -R spec ./test/index.js`.
 ## Todo
 
 - [x] Parse time too;
-- [ ] Make it work in the browser without browserify;
+- [x] Make it work in the browser without browserify;
 - [ ] Memoization;
 - [ ] Support other languages, it'll be a bit problematic to fix ordinal sufixes for
 all languages, but everything else should be fine.

@@ -1,4 +1,4 @@
-export default class Vreme {
+class Vreme {
 
   constructor(options) {
 

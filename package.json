@@ -1,23 +1,26 @@
 {
   "name": "vreme",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Format date and time by providing human-readable example",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R spec ./test/index.js",
-    "compile": "babel src/index.js -o index.js; ./node_modules/.bin/git-changelog -a Vreme"
+    "test": "mocha -R spec ./test/index.js; istanbul cover _mocha",
+    "compile": "babel src/index.js -o .tmp/vreme.js; buildify; git-changelog -a Vreme"
   },
   "keywords": [
     "time",
     "date",
     "format",
     "human",
-    "readable"
+    "readable",
+    "example"
   ],
   "devDependencies": {
+    "buildify": "^0.4.0",
     "chai": "^2.0.0",
     "git-changelog": "^0.1.7",
     "grunt": "^0.4.5",
+    "istanbul": "^0.3.14",
     "mocha": "^2.1.0"
   },
   "repository": {

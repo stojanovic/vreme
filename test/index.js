@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var Vreme  = require('../');
+var Vreme  = require('../vreme');
 
 var stamp, date;
 
@@ -75,9 +75,33 @@ describe('Human Readable Time format', function () {
 
     });
 
-    it('should convert date to ordinal day number', function() {
+    it('should convert date to ordinal day number (st)', function() {
 
       expect(stamp.format(date, '1st')).to.equal('1st');
+
+    });
+
+    it('should convert date to ordinal day number (nd)', function() {
+
+      var date = date = new Date('Sun, 02 Aug 2015 2:10:21');
+
+      expect(stamp.format(date, '1st')).to.equal('2nd');
+
+    });
+
+    it('should convert date to ordinal day number (rd)', function() {
+
+      var date = date = new Date('Mon, 03 Aug 2015 2:10:21');
+
+      expect(stamp.format(date, '1st')).to.equal('3rd');
+
+    });
+
+    it('should convert date to ordinal day number (th)', function() {
+
+      var date = date = new Date('Tue, 04 Aug 2015 2:10:21');
+
+      expect(stamp.format(date, '1st')).to.equal('4th');
 
     });
 
@@ -162,6 +186,12 @@ describe('Human Readable Time format', function () {
     it('should format date in YY/MM/DD format', function() {
 
       expect(stamp.format(date, '42/04/25')).to.equal('15/08/01');
+
+    });
+
+    it('should format date in MM/DD/YY format', function() {
+
+      expect(stamp.format(date, '10/10/10')).to.equal('08/01/15');
 
     });
 

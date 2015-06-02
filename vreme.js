@@ -1,8 +1,26 @@
-'use strict';
+/*!
+ * vreme.js - Format date and time by providing human-readable example.
+ * https://github.com/stojanovic/vreme
+ */
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
+/*global define: false Vreme: true*/
+
+(function(global, factory) {
+  // CommonJS
+  if (typeof exports === 'object' && exports) {
+    module.exports = factory();
+  }
+  // AMD
+  else if (typeof define === 'function' && define.amd) {
+    define(factory);
+  }
+  // global
+  else {
+    global.Vreme = factory();
+  }
+}(this, function () {
+
+  'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -130,10 +148,11 @@ var Vreme = (function () {
     //
     // Formated date partial (String)
     value: function formatDate(date, format) {
-      var _this3 = this;
+      var _this4 = this;
 
       // Best match function
       var bestMatch = function bestMatch(_x, _x2, _x3) {
+        var _this3 = _this4;
         var _again = true;
 
         _function: while (_again) {
@@ -183,6 +202,7 @@ var Vreme = (function () {
           _this3.reset();
 
           // Then call the function again
+          _this3 = undefined;
           _x = number;
           _x2 = date;
           _again = true;
@@ -265,11 +285,11 @@ var Vreme = (function () {
   }, {
     key: 'formatTime',
     value: function formatTime(dateTime, format, index, fullTime) {
-      var _this4 = this;
+      var _this5 = this;
 
       var getAmPm = function getAmPm(format, hours) {
         var ampm = hours < 12 ? 'am' : 'pm';
-        if (_this4._isAllCaps(format)) return ampm.toUpperCase();
+        if (_this5._isAllCaps(format)) return ampm.toUpperCase();
         return ampm;
       };
 
@@ -332,5 +352,7 @@ var Vreme = (function () {
   return Vreme;
 })();
 
-exports['default'] = Vreme;
-module.exports = exports['default'];
+
+  return Vreme;
+
+}));
