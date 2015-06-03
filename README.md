@@ -16,7 +16,15 @@ some other module for more complex date formats (ie. [this one](https://www.npmj
 
 ## Usage
 
-Import Vreme and make a new instance, than you should simply provide date and 
+Install module via:
+
+`npm install vreme`
+
+or
+
+`bower install vreme`.
+
+Then import Vreme and make a new instance, than you should simply provide date and 
 human readable format.
 
 If works with node.js and in the browser. It supports CommonJS, AMD and using as
