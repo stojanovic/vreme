@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Vreme.js - The simplest date and time formatting library.</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/prism.css">
+  </head>
+  <body>
+    <a href="https://github.com/stojanovic/vreme">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+    </a>
+    <div class=container>
+      <header>
+        <img class=logo src="vreme.svg" />
+        <center>The simplest date and time formatting library.</center>
+          <ul class="share-buttons">
+            <li>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstojanovic.github.io%2Fvreme&t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;">
+                <img src="img/flat_web_icon_set/color/Facebook.png">
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fstojanovic.github.io%2Fvreme&text=:%20http%3A%2F%2Fstojanovic.github.io%2Fvreme&via=jsbelgrade" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;">
+              <img src="img/flat_web_icon_set/color/Twitter.png">
+            </a>
+            </li>
+            <li>
+              <a href="https://plus.google.com/share?url=ƒ%3A%2F%2Fnodeschool.io%2Fbelgrade%2F" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;">
+                <img src="img/flat_web_icon_set/color/Google+.png">
+              </a>
+            </li>
+            <li>
+              <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fstojanovic.github.io%2Fvreme&title=&summary=&source=http%3A%2F%2Fstojanovic.github.io%2Fvreme" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;">
+                <img src="img/flat_web_icon_set/color/LinkedIn.png">
+              </a>
+            </li>
+            <li>
+              <a href="mailto:?subject=&body=:%20http%3A%2F%2Fstojanovic.github.io%2Fvreme" target="_blank" title="Email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&body=' +  encodeURIComponent(document.URL)); return false;">
+                <img src="img/flat_web_icon_set/color/Email.png">
+              </a>
+            </li>
+      </ul>
+      </header>
+
+      <p>Vreme is a simple date and time formatter library, it formats date and time to match provided human-readable example. It is inspired by date formatting in <a href=http://golang.org/pkg/time/>Go lang</a> and <a href=https://github.com/jeremyw/stamp>Stamp</a> Ruby library.</p>
+      
+      <p>Why? Because formating date and time should be as simple as posible and remembering mmm/MM/YYYY/%D formats is not.</p>
+
+      <p>"Vreme" means Time in Serbian.</p>
+
+      <h2>Installation</h2>
+
+      <p>Install from using npm:</p>
+      <pre><code class=language-javascript>npm install vreme</code></pre>
+
+      <p>Install from using bower:</p>
+      <pre><code class=language-javascript>bower install vreme</code></pre>
+
+      <p>Or download it on a <a href=https://github.com/stojanovic/vreme/releases>Github</a>.</p>
+
+      <h2>Usage</h2>
+
+      <p>Import Vreme and make a new instance, than you should simply provide date and human readable format.</p>
+
+      <p>If works with node.js and in the browser. It supports CommonJS, AMD and using as global variable.</p>
+
+      <h3>Node.js / io.js</h3>
+
+      <p>You can format full dates and times or just a month/day name, as you can see in the example below:</p>
+
+      <pre><code class=language-javascript>
+
+var Vreme = require('Vreme')
+
+var vreme = new Vreme()
+
+var date = new Date('Sat, 01 Aug 2015 14:10:21')
+
+// To get month
+console.log(vreme.format(date, 'January'))            // Output 'August'
+console.log(vreme.format(date, 'Jan'))                // Aug
+console.log(vreme.format(date, '12'))                 // 08
+console.log(vreme.format(date, '2'))                  // 8
+
+// To convert day names
+console.log(vreme.format(date, 'Monday'))             // Saturday
+console.log(vreme.format(date, 'monday'))             // saturday
+console.log(vreme.format(date, 'Mon'))                // Sat
+console.log(vreme.format(date, 'Mo'))                 // Sa
+console.log(vreme.format(date, 'MO'))                 // SA
+console.log(vreme.format(date, '1st'))                // 1st
+console.log(vreme.format(date, '22'))                 // 01
+
+// To get year
+console.log(vreme.format(date, '1999'))               // 2015
+console.log(vreme.format(date, '42'))                 // 15
+
+// To get time
+console.log(vreme.format(date, '4:10 pm'))            // '2:10 pm'
+console.log(vreme.format(date, '15:32'))              // '14:10'
+
+// To get full dates
+console.log(vreme.format(date, 'March 25, 1999'))     // August 01, 2015
+console.log(vreme.format(date, 'March 1, 1999'))      // August 1, 2015
+console.log(vreme.format(date, 'March 25th'))         // August 1st
+console.log(vreme.format(date, '2014/04/25'))         // 2015/08/01
+console.log(vreme.format(date, '2014/04/25 4:10 am')) // 2015/08/01 2:10 pm
+console.log(vreme.format(date, '02/03/11'))           // 08/01/15
+console.log(vreme.format(date, '21.04.2015'))         // 01.08.2015
+
+// Or you can combine it with text
+console.log(vreme.format(date, 'Date: March, 25th'))  // Date: August, 1st
+
+      </code></pre>
+
+      <h3>With prototype</h3>
+
+      <p>If you pass <pre>usePrototype: true</pre> in options Vreme will be added as a method of Date object (`Date#formatLike`), so you can use it like this:</p>
+
+      <pre><code class=language-javascript>
+
+var Vreme = require('Vreme')
+
+var vreme = new Vreme({
+  usePrototype: true
+})
+
+var date = new Date('8/20/2015')
+
+// Then you can get date like this
+console.log(date.formatLike('March 25, 1999'))    // August 20, 2015
+
+      </code></pre>
+
+      <h3>In the browser</h3>
+
+      <p>Just include vreme.js or vreme.min.js in scripts and use the module same as described above.</p>
+
+      <pre><code class=language-markup>
+
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Vreme test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script src=&quot;vreme.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+
+    var vreme = new Vreme();
+
+    var date = new Date();
+
+    console.log(vreme.format(date, 'Monday'));
+
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+      </code></pre>
+
+      <h2>Limitations</h2>
+
+      <p>This module is relying on regular expressions and I tried to keep it as simple as it's possible, so there is some limitations:</p>
+
+      <ul>
+        <li>If you are using integers smaller than 13 for month, year and day (ie. '02/03/11') module will always assume `MM/DD/YY` format;</li>
+        <li>If you use integers between 13 and 31 for both year and day it'll assume (ie. '02/14/14') it'll assume DD/YY format;</li>
+        <li>At the moment it works only with month and day names in english.</li>
+      </ul>
+
+      <p>There are additional limitation that are not on this list, they'll be added.</p>
+
+      <p>For more complex date formats consider using <a href=https://www.npmjs.com/package/strftime>strftime</a> or <a href=http://momentjs.com/>moment.js</a></p>
+
+      <h2>Report issues</h2>
+
+      <p>Use <a href=https://github.com/stojanovic/vreme/issues>Githib issues</a> to report a problem or suggest a new feature.</p>
+
+      <h2>Development</h2>
+
+      <p>Vreme is written in ES6 and compiled with Babel.</p>
+      <p>Intall Babel by running <code class=language-javascript>npm i babel -g</code> then run <code class=language-javascript>npm install</code> to install dev dependencies and <code class=language-javascript>npm run compile</code> to transpile it to ES5.</p>
+      <p>If you want to run Babel manually, you'll need to do: <code class=language-javascript>babel src/index.js -o .tmp/vreme.js</code> and then <code class=language-javascript>buildify</code> to add support for CommonJS, AMD and script and to make minified version.</p>
+
+      <h3>Test</h3>
+
+      <p>Run <code class=language-javascript>npm test</code> or <code class=language-javascript>mocha -R spec ./test/index.js</code>.</p>
+
+      <footer>Created by <a href=http://slobodan.me>Slobodan Stojanovic</a>; <a href=https://github.com/stojanovic/vreme/blob/master/LICENCE>MIT</a> Licence</footer>
+
+      <script src=js/prism.js></script>
+
+    </div>
+  </body>
+</html>
