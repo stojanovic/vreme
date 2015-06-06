@@ -91,3 +91,7 @@ ul.share-buttons li {
 a>img {
   border: 0;
 }
+
+img.hidden {
+  display: none;
+}
