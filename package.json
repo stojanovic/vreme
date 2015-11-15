@@ -21,7 +21,7 @@
     "git-changelog": "0.1.8",
     "grunt": "0.4.5",
     "istanbul": "0.4.0",
-    "mocha": "2.3.3"
+    "mocha": "2.3.4"
   },
   "repository": {
     "type": "git",
