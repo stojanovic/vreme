@@ -33,9 +33,13 @@
       };
 
       if (options && options.usePrototype) {
-        Date.prototype.formatLike = function (formatString) {
-          return _this.format(_this, formatString);
-        };
+        (function () {
+          var self = _this;
+
+          Date.prototype.formatLike = function (formatString) {
+            return self.format(this, formatString);
+          };
+        })();
       }
 
       this.regex = {
@@ -103,7 +107,6 @@
 
           if (number > 12 && !_this3.matches.year || number > 31) {
             _this3.matches.year = true;
-            console.log(date, date.getFullYear);
             return date.getFullYear() + '';
           }
 
@@ -122,7 +125,6 @@
 
           if (!_this3.matches.year) {
             _this3.matches.year = true;
-            console.log(date, date.getFullYear);
             if (twoDigits) return ('0' + date.getFullYear()).slice(-2);
             return date.getFullYear() + '';
           }
@@ -172,7 +174,6 @@
 
           if (number > 31 && number < 100) {
             this.matches.year = true;
-            console.log(date, date.getFullYear);
             return (date.getFullYear() + '').substring(2, 4);
           }
 
