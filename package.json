@@ -22,7 +22,7 @@
     "babel-plugin-transform-es2015-modules-umd": "^6.0.15",
     "buildify": "0.4.0",
     "chai": "3.5.0",
-    "git-changelog": "0.1.8",
+    "git-changelog": "0.1.9",
     "grunt": "0.4.5",
     "istanbul": "0.4.1",
     "mocha": "2.4.5"
