@@ -17,7 +17,7 @@
   ],
   "devDependencies": {
     "babel": "^6.0.15",
-    "babel-cli": "^6.1.1",
+    "babel-cli": "^6.8.0",
     "babel-core": "^6.4.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.0.15",
     "buildify": "0.4.0",
