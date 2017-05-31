@@ -91,6 +91,8 @@ describe('Human Readable Time format', () => {
 
     it('should format date in Monthname D, YYYY H:MM am/pm format', () => expect(stamp.format(date, 'March 25, 1999 2:04 PM')).to.equal('August 01, 2015 2:10 AM'))
 
+    it('should format date in Dayname M/D/YY format', () => expect(stamp.format(date, 'Tue 2/9/90')).to.equal('Sat 8/1/15'))
+
     it('should keep the extraneous text', () => expect(stamp.format(date, 'Date: March, 25th')).to.equal('Date: August, 1st'))
 
     it('should keep the extraneous text after time', () => expect(stamp.format(date, 'Date: March, 25th 1:10pm lorem ipsum')).to.equal('Date: August, 1st 2:10am lorem ipsum'))

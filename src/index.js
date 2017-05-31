@@ -147,7 +147,7 @@ export default class Vreme {
       }
 
       // Otherwise reset object
-      this.reset()
+      this._reset()
 
       // Then call the function again
       return bestMatch(number, date)
@@ -168,19 +168,16 @@ export default class Vreme {
 
     // Check if format string is full day name
     if (format.match(this.regex.DAYNAMES_REGEXP)) {
-      this.matches.day = true
       return this._correctCase(format, this.options.dayNames[date.getDay()])
     }
 
     // Check if format string is 3 letter day name
     if (format.match(this.regex.DAYNAMES_ABBR_REGEXP)) {
-      this.matches.day = true
       return this._correctCase(format, this.options.dayNames[date.getDay()].substr(0, 3))
     }
 
     // Check if format string is 2 letter day name
     if (format.match(this.regex.DAYNAMES_SHORT_REGEXP)) {
-      this.matches.day = true
       return this._correctCase(format, this.options.dayNames[date.getDay()].substr(0, 2))
     }
 
@@ -219,7 +216,7 @@ export default class Vreme {
       let number = parseInt(format, 10)
 
       // And try to find the best match (it could be month, day or maybe year,
-      // but that's a bit unlikelly)
+      // but that's a bit unlikely)
       return bestMatch(number, date)
     }
 
